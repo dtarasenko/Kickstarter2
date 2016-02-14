@@ -53,7 +53,7 @@ public class KickstarterTest {
         project2.setQuestionAnswers("QA");
         project2.setCategory(category);
 
-        FakeIO io = new FakeIO(1, 2, 0, 0, 0);
+        FakeIO io = new FakeIO(1, 2, 0, 0, 0, 0);
         Kickstarter kickstarter = new Kickstarter(categories, projects, io, new StubQuoteGenerator());
 
         kickstarter.run();
@@ -85,6 +85,8 @@ public class KickstarterTest {
                 ", video2\n" +
                 ", QA\n" +
                 ", -----------------------------------------\n" +
+                ", Выберите что хотите сделать с проектом:\n" +
+                "[0 - выйти к списку проектов, 1 - инвестировать в проект]\n" +
                 ", Выбери проект [1...2] или 0 для выхода\n" +
                 ", Выбери категорию (или 0 для выхода):\n" +
                 ", [1 - category1]\n" +
@@ -128,7 +130,7 @@ public class KickstarterTest {
     }
 
     @Test
-    public void mock() {
+    public void mockTest() {
         Categories categories = new Categories();
         categories.add(new Category("category1"));
         categories.add(new Category("category2"));
@@ -155,6 +157,35 @@ public class KickstarterTest {
         Mockito.verify(io, Mockito.times(2)).print("Выбери категорию (или 0 для выхода):\n");
         Mockito.verify(io, Mockito.times(2)).print("[1 - category1, 2 - category2]\n");
         Mockito.verify(io).print("Спасибо за использование нашей программы!\n");
+    }
+
+    @Test
+    public void shouldPrintProjectMenu_whenSelectIt() {
+        Categories categories = new Categories();
+        Category category = new Category("category1");
+        categories.add(category);
+
+        Projects projects = new Projects();
+        Project project = new Project("project1", 100, 1000, "video1", "description1");
+        projects.add(project);
+        project.setCategory(category);
+
+        IO io = Mockito.mock(IO.class);
+        QuoteGenerator generator = Mockito.mock(QuoteGenerator.class);
+
+        Kickstarter kickstarter = new Kickstarter(categories, projects, io, generator);
+
+        Mockito.when(generator.nextQuote()).thenReturn("quote");
+//        FakeIO io = new FakeIO(1, 0, 0);
+        Mockito.when(io.read()).thenReturn(1, 1, 1, 0, 0, 0);
+
+        kickstarter.run();
+
+
+
+        Mockito.verify(io, Mockito.times(2)).print("Выберите что хотите сделать с проектом:" +
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект]\n");
+        Mockito.verify(io).print("Спасибо, что хотите помочь проекту!\n");
 
     }
 }

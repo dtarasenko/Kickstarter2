@@ -20,9 +20,13 @@ public class Kickstarter {
 
     public void run() {
         println(generator.nextQuote());
+        categoryMenu();
+        println("Спасибо за использование нашей программы!");
+    }
 
+    private void categoryMenu() {
         while (true) {
-            askCategory();
+            askCategories();
             int menu = io.read();
 
             if (menu == 0) {
@@ -36,14 +40,13 @@ public class Kickstarter {
 
             Project[] found = projects.getProjects(category);
             printProjects(found);
-            projectMenu(found);
+            projectsMenu(found);
         }
-        println("Спасибо за использование нашей программы!");
     }
 
-    private void projectMenu(Project[] found) {
+    private void projectsMenu(Project[] found) {
         while (true) {
-            askProject(found);
+            askProjects(found);
             int menu = io.read();
             if (menu == 0) {
                 break;
@@ -54,7 +57,28 @@ public class Kickstarter {
             }
             chooseProject(project);
             printProjectDetails(project);
+            projectMenu(project);
         }
+    }
+
+    private void projectMenu(Project project) {
+        while (true) {
+            askProject(project);
+
+            int menu = io.read();
+            if (menu == 0) {
+                break;
+            }
+
+            if (menu == 1) {
+                println("Спасибо, что хотите помочь проекту!");
+            }
+        }
+    }
+
+    private void askProject(Project project) {
+        println("Выберите что хотите сделать с проектом:" +
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект]");
     }
 
     private Project chooseProject(int menu, Project[] found) {
@@ -65,7 +89,7 @@ public class Kickstarter {
         return found[menu - 1];
     }
 
-    private void askProject(Project[] found) {
+    private void askProjects(Project[] found) {
         if (found.length == 0) {
             println("Проектов в категории нет. Нажми 0 для выхода.");
         } else {
@@ -107,7 +131,7 @@ public class Kickstarter {
         println("-----------------------------------------");
     }
 
-    private void askCategory() {
+    private void askCategories() {
         System.out.println();
         println("Выбери категорию (или 0 для выхода):");
         println(Arrays.toString(categories.getCategories()));
