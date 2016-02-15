@@ -6,7 +6,7 @@ import java.util.Random;
 public class KickstarterRunner {
 
     public static void main(String[] args) {
-        //TODO 4 - 57min
+        //TODO 4 - 1.26min
         Category category1 = new Category("Photo");
         Category category2 = new Category("Video");
         Category category3 = new Category("Music");

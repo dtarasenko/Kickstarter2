@@ -188,4 +188,40 @@ public class KickstarterTest {
         Mockito.verify(io).print("Спасибо, что хотите помочь проекту!\n");
 
     }
+
+    @Test
+    public void shouldIncomeAmountToProject_whenDonate() {
+        //given
+        int TOTAL = 100;
+
+        Categories categories = new Categories();
+        Category category = new Category("category1");
+        categories.add(category);
+
+        Projects projects = new Projects();
+        Project project = new Project("project1", TOTAL, 1000, "video1", "description1");
+        projects.add(project);
+        project.setCategory(category);
+
+        IO io = Mockito.mock(IO.class);
+        QuoteGenerator generator = Mockito.mock(QuoteGenerator.class);
+
+        Kickstarter kickstarter = new Kickstarter(categories, projects, io, generator);
+
+        //when
+        Mockito.when(generator.nextQuote()).thenReturn("quote");
+        Mockito.when(io.read()).thenReturn("1", "1", "1", "Дима", "78914245325", "25", "0", "0", "0");
+
+        kickstarter.run();
+
+
+        //then
+        Mockito.verify(io, Mockito.times(2)).print("Выберите что хотите сделать с проектом:" +
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект]\n");
+        Mockito.verify(io).print("Спасибо, что хотите помочь проекту!\n");
+        Mockito.verify(io).print("Введите имя:\n");
+        Mockito.verify(io).print("Введите размер суммы:\n");
+        Mockito.verify(io).print("Спасибо Дима, Ваши деньги в размере 25 успешно зачислены на счет проекта\n");
+
+    }
 }

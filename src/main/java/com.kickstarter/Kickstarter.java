@@ -79,7 +79,14 @@ public class Kickstarter {
                 Integer menu = (Integer) selected;
                 if (menu == 1) {
                     println("Спасибо, что хотите помочь проекту!");
+                    println("Введите имя:");
                     String name = io.read();
+                    println("Введите номер вашей карточки:");
+                    String cardNumber = io.read();
+                    println("Введите размер суммы:");
+                    int amount = Integer.parseInt(io.read());
+                    println("Спасибо " + name + ", Ваши деньги в размере " + amount + " успешно зачислены на счет проекта");
+                    println("-----------------------------------------");
                 }
                 return null;
             }
