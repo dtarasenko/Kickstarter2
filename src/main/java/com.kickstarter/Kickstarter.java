@@ -79,6 +79,7 @@ public class Kickstarter {
                 Integer menu = (Integer) selected;
                 if (menu == 1) {
                     println("Спасибо, что хотите помочь проекту!");
+                    String name = io.read();
                 }
                 return null;
             }

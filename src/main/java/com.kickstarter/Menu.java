@@ -12,7 +12,7 @@ public abstract class Menu {
         while (true) {
             ask();
 
-            int menu = io.read();
+            int menu = Integer.parseInt(io.read());
             if (menu == 0) {
                 break;
 

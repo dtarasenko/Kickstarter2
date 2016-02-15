@@ -19,7 +19,7 @@ public class KickstarterTest {
         categories.add(new Category("category1"));
         categories.add(new Category("category2"));
         Projects projects = new Projects();
-        FakeIO io = new FakeIO(1, 0, 0);
+        FakeIO io = new FakeIO("1", "0", "0");
         Kickstarter kickstarter = new Kickstarter(categories, projects, io, new StubQuoteGenerator());
 
         kickstarter.run();
@@ -53,7 +53,7 @@ public class KickstarterTest {
         project2.setQuestionAnswers("QA");
         project2.setCategory(category);
 
-        FakeIO io = new FakeIO(1, 2, 0, 0, 0, 0);
+        FakeIO io = new FakeIO("1", "2", "0", "0", "0", "0");
         Kickstarter kickstarter = new Kickstarter(categories, projects, io, new StubQuoteGenerator());
 
         kickstarter.run();
@@ -97,13 +97,13 @@ public class KickstarterTest {
     private class FakeIO implements IO {
 
         private List<String> messages = new LinkedList<>();
-        private List<Integer> input = new LinkedList<>();
+        private List<String> input = new LinkedList<>();
 
-        public FakeIO(Integer... input) {
+        public FakeIO(String... input) {
             this.input = new LinkedList<>(Arrays.asList(input));
         }
 
-        public int read() {
+        public String read() {
             return input.remove(0);
         }
 
@@ -144,7 +144,7 @@ public class KickstarterTest {
 
         Mockito.when(generator.nextQuote()).thenReturn("quote");
 //        FakeIO io = new FakeIO(1, 0, 0);
-        Mockito.when(io.read()).thenReturn(1, 0, 0);
+        Mockito.when(io.read()).thenReturn("1", "0", "0");
 
         kickstarter.run();
 
@@ -177,7 +177,7 @@ public class KickstarterTest {
 
         Mockito.when(generator.nextQuote()).thenReturn("quote");
 //        FakeIO io = new FakeIO(1, 0, 0);
-        Mockito.when(io.read()).thenReturn(1, 1, 1, 0, 0, 0);
+        Mockito.when(io.read()).thenReturn("1", "1", "1", "0", "0", "0");
 
         kickstarter.run();
 

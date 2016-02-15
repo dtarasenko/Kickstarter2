@@ -3,7 +3,7 @@ package com.kickstarter;
 
 public interface IO {
 
-    int read();
+    String read();
 
     void print(String message);
 }
