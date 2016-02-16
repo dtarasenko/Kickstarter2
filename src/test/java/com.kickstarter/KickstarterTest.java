@@ -178,6 +178,8 @@ public class KickstarterTest {
     public void shouldIncomeAmountToProject_whenDonate() {
         //given
         int TOTAL = 100;
+        int DONATE = 25;
+        int STILL_NEEDED = 75;
 
         Category category = new Category("category1");
         categories.add(category);
@@ -187,7 +189,7 @@ public class KickstarterTest {
         project.setCategory(category);
 
         //when
-        when(io.read()).thenReturn("1", "1", "1", "Дима", "78914245325", "25", "0", "0", "0");
+        when(io.read()).thenReturn("1", "1", "1", "Дима", "78914245325", "" + DONATE, "0", "0", "0");
         kickstarter.run();
 
         //then
@@ -200,6 +202,8 @@ public class KickstarterTest {
         assertPrinted(values, "Введите номер вашей карточки:\n");
         assertPrinted(values, "Введите размер суммы:\n");
         assertPrinted(values, "Спасибо Дима, Ваши деньги в размере 25 успешно зачислены на счет проекта\n");
+
+        assertEquals(STILL_NEEDED, project.getAmount());
     }
 
     private void assertPrinted(List<String> values, String expected) {

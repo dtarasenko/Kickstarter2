@@ -75,4 +75,8 @@ public class Project {
     public void setQuestionAnswers(String questionAnswers) {
         this.questionAnswers = questionAnswers;
     }
+
+    public void donate(int amount) {
+        this.amount -= amount;
+    }
 }
