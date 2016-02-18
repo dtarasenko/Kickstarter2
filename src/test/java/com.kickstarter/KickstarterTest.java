@@ -38,9 +38,9 @@ public class KickstarterTest {
 
     @Test
     public void shouldExitFromProgramm_whenExitFromCategoriesMenu() {
-        //given
+        // given
 
-        //when
+        // when
         when(io.read()).thenReturn("0");
 
         kickstarter.run();
@@ -48,15 +48,15 @@ public class KickstarterTest {
 
     @Test
     public void shouldNoCategoriesInProject_whenSelectCategory() throws Exception {
-        //given
+        // given
         categories.add(new Category("category1"));
         categories.add(new Category("category2"));
 
-        //when
+        // when
         when(io.read()).thenReturn("1", "0", "0");
         kickstarter.run();
 
-        //then
+        // then
         List<String> values = assertPrinted(io, 9);
 
         assertEquals("[quote\n" +
@@ -73,7 +73,7 @@ public class KickstarterTest {
 
     @Test
     public void showMenuWithProjects() throws Exception {
-        //given
+        // given
         Category category = new Category("category1");
         categories.add(category);
 
@@ -87,11 +87,16 @@ public class KickstarterTest {
         project2.setQuestionAnswers("QA");
         project2.setCategory(category);
 
-        //when
+        // when
+        // выбрали категорию
+        // выбрали проект
+        // вышли из проекта
+        // вышли из списка проектов
+        // вышли из списка категорий (программы)
         when(io.read()).thenReturn("1", "2", "0", "0", "0", "0");
         kickstarter.run();
 
-        //then
+        // then
         List<String> values = assertPrinted(io, 34);
 
         assertEquals("[quote\n" +
@@ -132,15 +137,18 @@ public class KickstarterTest {
 
     @Test
     public void shouldSelectCategoryWithoutProjects() {
-        //given
+        // given
         categories.add(new Category("category1"));
         categories.add(new Category("category2"));
 
-        //when
+        // when
+        // выбрали категорию
+        // вышли из проектов
+        // вышли из списка категорий (программы)
         when(io.read()).thenReturn("1", "0", "0");
         kickstarter.run();
 
-        //then
+        // then
         List<String> values = assertPrinted(io, 9);
 
         assertPrinted(values, "quote\n");
@@ -153,7 +161,7 @@ public class KickstarterTest {
 
     @Test
     public void shouldPrintProjectMenu_whenSelectIt() {
-        //given
+        // given
         Category category = new Category("category1");
         categories.add(category);
 
@@ -161,11 +169,17 @@ public class KickstarterTest {
         projects.add(project);
         project.setCategory(category);
 
-        //when
+        // when
+        // выбрали категорию
+        // выбрали проект
+        // выбрали оплату
+        // вышли из проекта
+        // вышли из проектов
+        // вышли из списка категорий (программы)
         when(io.read()).thenReturn("1", "1", "1", "0", "0", "0");
         kickstarter.run();
 
-        //then
+        // then
         List<String> values = assertPrinted(io, 34);
 
         assertPrinted(values, "Выберите что хотите сделать с проектом:" +
@@ -176,7 +190,7 @@ public class KickstarterTest {
 
     @Test
     public void shouldIncomeAmountToProject_whenDonate() {
-        //given
+        // given
         int TOTAL = 100;
         int DONATE = 25;
         int STILL_NEEDED = 75;
@@ -188,11 +202,19 @@ public class KickstarterTest {
         projects.add(project);
         project.setCategory(category);
 
-        //when
+        // when
+        // 1 выбрали категорию
+        // 1 выбрали проект
+        // 1 выбрали оплату
+        // ввели имя
+        // ввели номер карточки
+        // ввели сумму донейшена
+        // 000 вышли из всех меню
+
         when(io.read()).thenReturn("1", "1", "1", "Дима", "78914245325", "" + DONATE, "0", "0", "0");
         kickstarter.run();
 
-        //then
+        // then
         List<String> values = assertPrinted(io, 34);
 
         assertPrinted(values, "Выберите что хотите сделать с проектом:" +
@@ -216,7 +238,7 @@ public class KickstarterTest {
         return captor.getAllValues();
     }
 
-    //fake example
+    // fake example
     private class FakeIO implements IO {
 
         private List<String> messages = new LinkedList<>();
@@ -239,7 +261,7 @@ public class KickstarterTest {
         }
     }
 
-    //stub example
+    // stub example
     private class StubQuoteGenerator extends QuoteGenerator {
 
         public StubQuoteGenerator() {
