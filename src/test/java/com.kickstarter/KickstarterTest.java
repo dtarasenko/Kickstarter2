@@ -84,7 +84,7 @@ public class KickstarterTest {
         Project project2 = new Project("project2", 200, 2000, "video2", "dexcription2");
         projects.add(project2);
         project2.setHistory("hestory2");
-        project2.setQuestionAnswers("QA");
+        project2.addQuestion("QA");
         project2.setCategory(category);
 
         // when
@@ -127,7 +127,7 @@ public class KickstarterTest {
                 ", QA\n" +
                 ", -----------------------------------------\n" +
                 ", Выберите что хотите сделать с проектом:\n" +
-                "[0 - выйти к списку проектов, 1 - инвестировать в проект]\n" +
+                "[0 - выйти к списку проектов, 1 - инвестировать в проект, 2 - задать вопрос Авторам]\n" +
                 ", Выбери проект [1...2] или 0 для выхода\n" +
                 ", Выбери категорию (или 0 для выхода):\n" +
                 ", [1 - category1]\n" +
@@ -183,7 +183,7 @@ public class KickstarterTest {
         List<String> values = assertPrinted(io, 34);
 
         assertPrinted(values, "Выберите что хотите сделать с проектом:" +
-                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект]\n");
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект, 2 - задать вопрос Авторам]\n");
         assertPrinted(values, "Спасибо, что хотите помочь проекту!\n");
 
     }
@@ -218,7 +218,7 @@ public class KickstarterTest {
         List<String> values = assertPrinted(io, 34);
 
         assertPrinted(values, "Выберите что хотите сделать с проектом:" +
-                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект]\n");
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект, 2 - задать вопрос Авторам]\n");
         assertPrinted(values, "Спасибо, что хотите помочь проекту!\n");
         assertPrinted(values, "Введите имя:\n");
         assertPrinted(values, "Введите номер вашей карточки:\n");
@@ -269,8 +269,31 @@ public class KickstarterTest {
         assertEquals("А когда собираетесь выпускать фильм?", project.getQuestionAnswers());
     }
 
+    @Test
+    public void shouldAddQuestion_whenAskIt() {
+        // given
+        Project project = new Project("name", 100, 10, "video", "description");
+        assertEquals(null, project.getQuestionAnswers());
 
+        // when
+        project.addQuestion("question");
 
+        // then
+        assertEquals("question", project.getQuestionAnswers());
+    }
+
+    @Test
+    public void shouldAddSecondQuestion_whenAskIt() {
+        // given
+        Project project = new Project("name", 100, 10, "video", "description");
+        project.addQuestion("question");
+
+        // when
+        project.addQuestion("answer answer");
+
+        // then
+        assertEquals("question\nanswer answer", project.getQuestionAnswers());
+    }
 
     // fake example
     private class FakeIO implements IO {

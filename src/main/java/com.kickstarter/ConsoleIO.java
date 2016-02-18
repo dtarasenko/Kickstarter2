@@ -6,7 +6,7 @@ public class ConsoleIO implements IO {
 
     public String read() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public void print(String message) {

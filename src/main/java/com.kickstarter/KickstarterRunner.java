@@ -37,7 +37,7 @@ public class KickstarterRunner {
         project2.setHistory("Мы только начали и потому особо нечего рассказывать.\n" +
                 "Продолжение следует!");
 
-        project1.setQuestionAnswers("Q: Какая продолжытельность фильма?\n" +
+        project1.addQuestion("Q: Какая продолжытельность фильма?\n" +
                 "A: два часа");
 
         application.run();

@@ -72,8 +72,12 @@ public class Project {
         return questionAnswers;
     }
 
-    public void setQuestionAnswers(String questionAnswers) {
-        this.questionAnswers = questionAnswers;
+    public void addQuestion(String questionAnswers)  {
+        if (this.questionAnswers == null) {
+            this.questionAnswers = questionAnswers;
+        } else {
+            this.questionAnswers += "\n" + questionAnswers;
+        }
     }
 
     public void donate(int amount) {
