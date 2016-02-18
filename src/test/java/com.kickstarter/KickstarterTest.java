@@ -238,6 +238,40 @@ public class KickstarterTest {
         return captor.getAllValues();
     }
 
+    @Test
+    public void shouldMyQuestionOnProject_whenAddItOnProjectMenu() {
+        // given
+        Category category = new Category("category1");
+        categories.add(category);
+
+        Project project = new Project("project1", 100, 1000, "video1", "description1");
+        projects.add(project);
+        project.setCategory(category);
+
+        // when
+        // 1 выбрали категорию
+        // 1 выбрали проект
+        // 2 выбрали задать вопрос
+        // ввели вопрос
+        // 000 вышли из всех меню
+        when(io.read()).thenReturn("1", "1", "2", "А когда собираетесь выпускать фильм?", "0", "0", "0");
+
+        kickstarter.run();
+
+        // then
+        List<String> values = assertPrinted(io, 30);
+
+        assertPrinted(values, "Выберите что хотите сделать с проектом:" +
+                "\n[0 - выйти к списку проектов, 1 - инвестировать в проект, 2 - задать вопрос Авторам]\n");
+        assertPrinted(values, "Введите ваш вопрос:\n");
+        assertPrinted(values, "Спасибо за ваш вопрос, вскоре Автора с вами свяжутся\n");
+
+        assertEquals("А когда собираетесь выпускать фильм?", project.getQuestionAnswers());
+    }
+
+
+
+
     // fake example
     private class FakeIO implements IO {
 
