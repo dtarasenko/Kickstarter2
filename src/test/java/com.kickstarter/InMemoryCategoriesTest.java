@@ -1,5 +1,6 @@
 package com.kickstarter;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -8,36 +9,57 @@ import static org.junit.Assert.assertEquals;
 
 public class InMemoryCategoriesTest {
 
-    @Test
-    public void testGetCategories() throws Exception {
-        Categories categories = new InMemoryCategories();
-        String[] list = categories.getCategories();
-        assertEquals("[]", Arrays.toString(list));
+    private Categories list;
 
-        categories.add(new Category("name1"));
-        categories.add(new Category("name2"));
-        list = categories.getCategories();
+    @Before
+    public void setup() {
+        list = new InMemoryCategories();
+    }
+
+    @Test
+    public void shouldCategoriesList_whenAddCategories() throws Exception {
+        //given
+        list.add(new Category("name1"));
+        list.add(new Category("name2"));
+
+        //when
+        String[] list = this.list.getCategories();
+
+        //then
         assertEquals("[1 - name1, 2 - name2]", Arrays.toString(list));
     }
 
     @Test
-    public void testGet() throws Exception {
-        Categories list = new InMemoryCategories();
+    public void shouldCategoriesList_whenNoCategories() throws Exception {
+        //when
+        String[] list = this.list.getCategories();
+
+        //then
+        assertEquals("[]", Arrays.toString(list));
+    }
+
+    @Test
+    public void shouldGetCategoryByIndex() throws Exception {
         Category category1 = new Category("name1");
         list.add(category1);
+
         Category category2 = new Category("name2");
         list.add(category2);
+
+        // when then
         assertEquals(category1, list.get(0));
         assertEquals(category2, list.get(1));
     }
 
     @Test
-    public void testSize() throws Exception {
-        Categories list = new InMemoryCategories();
+    public void shouldGetCategoriesListSize_whenAddCategories() throws Exception {
         assertEquals(0, list.size());
 
+        // when
         list.add(new Category("name1"));
         list.add(new Category("name2"));
+
+        //then
         assertEquals(2, list.size());
     }
 }
