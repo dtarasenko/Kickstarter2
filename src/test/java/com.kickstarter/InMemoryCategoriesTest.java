@@ -13,7 +13,11 @@ public class InMemoryCategoriesTest {
 
     @Before
     public void setup() {
-        list = new InMemoryCategories();
+        list = getCategories();
+    }
+
+    private InMemoryCategories getCategories() {
+        return new InMemoryCategories();
     }
 
     @Test
