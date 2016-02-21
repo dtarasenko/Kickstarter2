@@ -1,10 +1,12 @@
 package com.kickstarter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,11 @@ public class KickstarterTest {
     private Categories categories;
     private Projects projects;
     private Kickstarter kickstarter;
+
+    @After
+    public void cleanUp() {
+        new File("test-categories.txt").delete();
+    }
 
     @Before
     public void setup() {

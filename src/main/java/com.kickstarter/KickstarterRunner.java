@@ -6,12 +6,12 @@ import java.util.Random;
 public class KickstarterRunner {
 
     public static void main(String[] args) {
-
+        //TODO 58
         Category category1 = new Category("Photo");
         Category category2 = new Category("Video");
         Category category3 = new Category("Music");
 
-        Categories categories = new InMemoryCategories();
+        Categories categories = new InFileCategories("categories.txt");
         categories.add(category1);
         categories.add(category2);
         categories.add(category3);
