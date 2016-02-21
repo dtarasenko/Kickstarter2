@@ -30,7 +30,7 @@ public class KickstarterTest {
 
         io = mock(IO.class);
 
-        categories = new Categories();
+        categories = new InMemoryCategories();
         projects = new Projects();
 
         kickstarter = new Kickstarter(categories, projects, io, generator);

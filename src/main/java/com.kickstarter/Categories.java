@@ -1,29 +1,15 @@
 package com.kickstarter;
 
-public class Categories {
+/**
+ * Created by DTarasenko on 2/21/2016.
+ */
+public interface Categories {
 
-    private Category[] categories = new Category[10];
+    void add(Category category);
 
-    private int count = 0;
+    String[] getCategories();
 
-    public void add(Category category) {
-        categories[count] = category;
-        count++;
-    }
+    Category get(int index);
 
-    public String[] getCategories() {
-        String[] result = new String[count];
-        for (int index = 0; index < count; index++) {
-            result[index] = String.valueOf(index + 1) + " - " + categories[index].getName();
-        }
-        return result;
-    }
-
-    public Category get(int index) {
-        return categories[index];
-    }
-
-    public int size() {
-        return count;
-    }
+    int size();
 }

@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class Kickstarter {
 
-    private IO io;
     private Categories categories;
+    private IO io;
     private Projects projects;
     private QuoteGenerator generator;
 
